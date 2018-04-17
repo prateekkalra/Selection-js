@@ -6,7 +6,7 @@
 </p>  
 
  <p align="center">
-  <a href="https://prateekkalra.github.io/Selection-js">Live Demo</a>
+  <a href="https://prateekkalra.github.io/Selection-js" target="_">Live Demo</a>
 </p>
 
 ## Usage
