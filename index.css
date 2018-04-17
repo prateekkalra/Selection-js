@@ -1,0 +1,27 @@
+.logo{
+	width: 200px;
+	height: 200px;
+	margin-top: 2%;
+}
+.lcolor{
+	color: #D91B5B;
+}
+.btns{
+	margin-top: 1%
+}
+#note{
+	border: 2px dotted black;
+	padding-bottom: 7px;
+	width: 60%;
+	margin-bottom:1%;
+}
+#note:hover{
+	border: 2px dashed #D91B5B;
+}
+
+.header{
+	font-family: Francois One;
+}
+.list-group-item{
+	font-family: Noticia Text;
+}
