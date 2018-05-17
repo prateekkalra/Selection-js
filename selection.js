@@ -1,7 +1,5 @@
 const Selection = (function() {
-  const items=['twitter','facebook','search','copy','speak']
-  
-function copyTextToClipboard(text) {
+ function copyTextToClipboard(text) {
     let textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
     textArea.style.top = 0;
@@ -79,6 +77,11 @@ function copyTextToClipboard(text) {
       icon:
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M16 11c0 2.209-1.791 4-4 4s-4-1.791-4-4v-7c0-2.209 1.791-4 4-4s4 1.791 4 4v7zm4-2v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>'
     };
+    const flipkartConfig = {
+      url: 'https://www.flipkart.com/search?q=',
+      icon:
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M20,2H4C2.9,2,2,2.9,2,4v16c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M18.4,7.4H17c-0.9,0-1,0.3-1,1l0,1.3 h2.1L18,12h-1.9v7h-3.2v-7h-1.2V9.6h1.2V8.1c0-2,0.8-3.1,3.1-3.1h2.4V7.4z"/></svg>'
+    };
 
     let selection = '';
     let text = '';
@@ -116,12 +119,20 @@ function copyTextToClipboard(text) {
     }
 
     function searchButton() {
-      const searchbtn = new Button(searchConfig.icon, function() {
-        popupwindow(searchConfig.url + encodeURIComponent(text), 'Search', 900, 540);
+      const searchbtn = new Button(flipkartConfig.icon, function() {
+        popupwindow(flipkartConfig.url + encodeURIComponent(text), 'flipkart', 900, 540);
         return false;
       });
 
       return searchbtn;
+    }
+    function flipkartButton() {
+      const flipkartbtn = new Button(flipkartConfig.icon, function() {
+        popupwindow(searchConfig.url + encodeURIComponent(text), 'flipkart', 900, 540);
+        return false;
+      });
+
+      return flipkartbtn;
     }
 
     function copyButton() {
@@ -147,7 +158,7 @@ function copyTextToClipboard(text) {
 
     function appendIcons() {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},{feature:'flipkart',call:flipkartButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
