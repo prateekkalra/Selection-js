@@ -52,6 +52,7 @@ const Selection = (function() {
       search: true,
       copy: true,
       speak: true,
+      flipkart:true,
       disable: false
     };
     const twitterConfig = {
@@ -119,8 +120,8 @@ const Selection = (function() {
     }
 
     function searchButton() {
-      const searchbtn = new Button(flipkartConfig.icon, function() {
-        popupwindow(flipkartConfig.url + encodeURIComponent(text), 'flipkart', 900, 540);
+      const searchbtn = new Button(searchConfig.icon, function() {
+        popupwindow(searchConfig.url + encodeURIComponent(text), 'search', 900, 540);
         return false;
       });
 
@@ -128,7 +129,7 @@ const Selection = (function() {
     }
     function flipkartButton() {
       const flipkartbtn = new Button(flipkartConfig.icon, function() {
-        popupwindow(searchConfig.url + encodeURIComponent(text), 'flipkart', 900, 540);
+        popupwindow(flipkartConfig.url + encodeURIComponent(text), 'flipkart', 900, 540);
         return false;
       });
 
@@ -282,6 +283,7 @@ const Selection = (function() {
       menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
       menu.search = options.search === undefined ? menu.search : options.search;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
+      menu.flipkart = options.flipkart === undefined ? menu.flipkart : options.flipkart;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
 
