@@ -2,7 +2,7 @@
   <a href="https://prateekkalra.github.io/Selection-js"><img alt="SelectionJS" src="./logo.png" width="150px"></a>
 </p>
 <p align="center">
-  A lightweight javascipt library which provides users with a set of options in the form of a small popover over the selected portion of text.
+  A lightweight javascript library which provides users with a set of options in the form of a small popover over the selected portion of text.
 </p>  
 
  <p align="center">
