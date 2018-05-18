@@ -144,28 +144,16 @@ const Selection = (function() {
     }
 
     function appendIcons() {
+      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
       let count = 0;
-      if (menu.twitter) {
-        div.appendChild(twitterButton());
-        count++;
-      }
-      if (menu.facebook) {
-        div.appendChild(facebookButton());
-        count++;
-      }
-      if (menu.search) {
-        div.appendChild(searchButton());
-        count++;
-      }
-      if (menu.copy) {
-        div.appendChild(copyButton());
-        count++;
-      }
-      if (menu.speak) {
-        div.appendChild(speakButton());
-        count++;
-      }
+      myitems.forEach((item)=>{
+        if(menu[item.feature]){
+          div.appendChild(item.call);
+          count++;
+        }
+      })
       return {
         icons: div,
         length: count
