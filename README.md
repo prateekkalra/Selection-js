@@ -11,9 +11,7 @@
 
 ## Usage
 
-[Script](https://github.com/prateekkalra/Selection-js/files/1920677/SelectionJS.zip)
-
-Just Add the Script to the project and initialize
+To get started with Selection.js, download the [Script](https://github.com/prateekkalra/Selection-js/files/1920677/SelectionJS.zip) and add it to your project
 
 
 ### Basic
