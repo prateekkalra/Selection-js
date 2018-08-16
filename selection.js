@@ -301,10 +301,11 @@ const Selection = (function() {
       menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
       menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
       menu.search = options.search === undefined ? menu.search : options.search;
+      menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
-      menu.translate = options.translate === undefined ? menu.translate : options.translate;
+      
 
       bgcolor = options.backgroundColor || '#333';
       iconcolor = options.iconColor || '#fff';
