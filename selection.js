@@ -177,8 +177,8 @@ const Selection = (function() {
     }
 
     function appendIcons() {
-      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},{feature:'translate',call:translateButton()}]
+      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
@@ -305,7 +305,6 @@ const Selection = (function() {
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
-      
 
       bgcolor = options.backgroundColor || '#333';
       iconcolor = options.iconColor || '#fff';
