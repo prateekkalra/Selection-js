@@ -34,26 +34,18 @@ const Selection = (function() {
     return window.open(
       url,
       title,
-      'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
-        w +
-        ', height=' +
-        h +
-        ', top=' +
-        top +
-        ', left=' +
-        left
+      'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no ' +
+      ', width=' + w +
+      ', height=' + h +
+      ', top=' + top +
+      ', left=' + left
     );
   }
-
-  function getBrowserLanguage(){ 
-    let language = navigator.language || navigator.userLanguage || function (){ 
-      const languages = navigator.languages; 
-      if (navigator.languages.length > 0){ 
-        return navigator.languages[0]; 
-      } 
-    }() || 'en'; 
-    return language.split('-')[0]; 
-  } 
+  //function to handle navigator.languages isn't necessary if you only want to return the first value in that array; navigator.language already returns the first value in the navigator.languages array and it's supported by all browsers
+  function getBrowserLanguage() {
+    let language = navigator.language || navigator.userLanguage || 'en';
+    return language.split('-')[0];
+  }
 
   function _selection() {
     const menu = {
@@ -105,7 +97,7 @@ const Selection = (function() {
 
     let selection = '';
     let text = '';
-    let bgcolor = 'crimson';
+    const bgcolor = 'crimson';
     let iconcolor = '#fff';
 
     let _icons = {};
@@ -325,7 +317,7 @@ const Selection = (function() {
 
   function Button(icon, clickFn) {
     const btn = document.createElement('div');
-    btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
+    btn.style = 'display:inline-block; margin:7px; cursor:pointer; transition:all .2s ease-in-out;';
     btn.innerHTML = icon;
     btn.onclick = clickFn;
     btn.onmouseover = function() {
