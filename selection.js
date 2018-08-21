@@ -49,7 +49,7 @@ const Selection = (function() {
   }
 
   function _selection() {
-    const menu = {
+    let menu = {
       twitter: true,
       facebook: true,
       search: true,
@@ -62,7 +62,7 @@ const Selection = (function() {
     let selection = '';
     let text = '';
     let bgcolor = 'crimson';
-    let iconcolor = '#fff';
+    let fill = '#fff';
 
     let _icons = {};
     let arrowsize = 5;
@@ -101,7 +101,7 @@ const Selection = (function() {
         icon:
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M23.111 20.058l-4.977-4.977c.965-1.52 1.523-3.322 1.523-5.251 0-5.42-4.409-9.83-9.829-9.83-5.42 0-9.828 4.41-9.828 9.83s4.408 9.83 9.829 9.83c1.834 0 3.552-.505 5.022-1.383l5.021 5.021c2.144 2.141 5.384-1.096 3.239-3.24zm-20.064-10.228c0-3.739 3.043-6.782 6.782-6.782s6.782 3.042 6.782 6.782-3.043 6.782-6.782 6.782-6.782-3.043-6.782-6.782zm2.01-1.764c1.984-4.599 8.664-4.066 9.922.749-2.534-2.974-6.993-3.294-9.922-.749z"/></svg>',
         action: function() {
-          popupwindow(search.url + encodeURIComponent(text), 'Search', 900, 540);
+          popupwindow(this.url + encodeURIComponent(text), 'Search', 900, 540);
           return false;
         }
       },
@@ -140,21 +140,14 @@ const Selection = (function() {
       }
     }
 
-    function IconStyle() {
-      const style = document.createElement('style');
-      style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
-      document.body.appendChild(style);
-    }
-
     function appendIcons() {
       let div = document.createElement('div');
       let count = 0;
 
       Object.keys(menuOptions).forEach((option) => {
-        const { icon, action } = menuOptions[option];
+        const { icon } = menuOptions[option];
         if (menu[option]) {
-          const btn = new Button(icon, action);
-          console.log(btn)
+          const btn = new Button(icon, menuOptions[option]);
           div.appendChild(btn);
           count++;
         }
@@ -187,47 +180,27 @@ const Selection = (function() {
 
       const div = document.createElement('div');
       div.className = 'selection';
-      div.style =
-        'line-height:0;' +
-        'position:absolute;' +
-        'background-color:' +
-        bgcolor +
-        ';' +
-        'border-radius:20px;' +
-        'top:' +
-        top +
-        'px;' +
-        'left:' +
-        left +
-        'px;' +
-        'transition:all .2s ease-in-out;' +
-        'box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);' +
-        'z-index:99999;';
+      div.style = `line-height:0;
+        position:absolute;
+        background-color: ${bgcolor};
+        border-radius:20px;
+        top: ${top}px;
+        left: ${left}px;
+        transition:all .2s ease-in-out;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        z-index:99999`;
 
       div.appendChild(_icons.icons);
 
       const arrow = document.createElement('div');
-      arrow.style =
-        'position:absolute;' +
-        'border-left:' +
-        arrowsize +
-        'px solid transparent;' +
-        'border-right:' +
-        arrowsize +
-        'px solid transparent;' +
-        'border-top:' +
-        arrowsize +
-        'px solid ' +
-        bgcolor +
-        ';' +
-        'bottom:-' +
-        (arrowsize - 1) +
-        'px;' +
-        'left:' +
-        (iconsize * _icons.length / 2 - arrowsize) +
-        'px;' +
-        'width:0;' +
-        'height:0;';
+      arrow.style = `position:absolute;' +
+        border-left: ${arrowsize}px solid transparent;
+        border-right: ${arrowsize}px solid transparent;
+        border-top: ${arrowsize}px solid ${bgcolor};'
+        bottom:-${(arrowsize - 1)}px;
+        left: ${(iconsize * _icons.length / 2 - arrowsize)}px;
+        width:0;
+        height:0`;
 
       if (!menu.disable) {
         div.appendChild(arrow);
@@ -245,69 +218,53 @@ const Selection = (function() {
         return !!document.querySelector('.selection');
       }
 
-      window.addEventListener(
-        'mouseup',
-        function() {
-          setTimeout(function mouseTimeout() {
-            if (hasTooltipDrawn()) {
-              if (hasSelection()) {
-                selection = window.getSelection();
-                text = selection.toString();
-                moveTooltip();
-                return;
-              } else {
-                document.querySelector('.selection').remove();
-              }
-            }
+      window.addEventListener('mouseup', function() {
+        setTimeout(function mouseTimeout() {
+          if (hasTooltipDrawn()) {
             if (hasSelection()) {
               selection = window.getSelection();
               text = selection.toString();
-              drawTooltip();
+              moveTooltip();
+              return;
+            } else {
+              document.querySelector('.selection').remove();
             }
-          }, 10);
-        },
-        false
-      );
+          }
+          if (hasSelection()) {
+            selection = window.getSelection();
+            text = selection.toString();
+            drawTooltip();
+          }
+        }, 10);
+      }, false);
     }
 
     function init() {
-      IconStyle();
       attachEvents();
       return this;
     }
 
     function config(options) {
-      menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
-      menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
-      menu.search = options.search === undefined ? menu.search : options.search;
-      menu.translate = options.translate === undefined ? menu.translate : options.translate;
-      menu.copy = options.copy === undefined ? menu.copy : options.copy;
-      menu.speak = options.speak === undefined ? menu.speak : options.speak;
-      menu.disable = options.disable === undefined ? menu.disable : options.disable;
-
-      bgcolor = options.backgroundColor || '#333';
-      iconcolor = options.iconColor || '#fff';
+      Object.keys(options).forEach((option) => {
+        menu[option] = options[option] === undefined ? menu[option] : options[option]
+      })
       return this;
-}
+    }
 
     return {
       config: config,
       init: init
     };
-  }
 
-  function Button(icon, clickFn) {
-    let btn = document.createElement('div');
-    btn.style = 'display:inline-block; margin:7px; cursor:pointer; transition:all .2s ease-in-out;';
-    btn.innerHTML = icon;
-    btn.onclick = clickFn;
-    btn.onmouseover = function() {
-      this.style.transform = 'scale(1.2)';
-    };
-    btn.onmouseout = function() {
-      this.style.transform = 'scale(1)';
-    };
-    return btn;
+    function Button(icon, option) {
+      return Object.assign(document.createElement('div'), {
+        style: `display:inline-block; margin:7px; cursor:pointer; transition:all .2s ease-in-out; fill:${fill};`,
+        innerHTML: icon,
+        onclick: option.action.bind(option),
+        onmouseover: function() { this.style.transform = 'scale(1.2)'; },
+        onmouseout: function() { this.style.transform = 'scale(1)'; }
+      })
+    }
   }
 
   return _selection;
