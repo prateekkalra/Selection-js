@@ -62,7 +62,7 @@ const Selection = (function() {
     let selection = '';
     let text = '';
     let bgcolor = 'crimson';
-    let fill = '#fff';
+    let iconcolor = '#fff';
 
     let _icons = {};
     let arrowsize = 5;
@@ -142,7 +142,7 @@ const Selection = (function() {
 
     function bindOptionsToNewButton(icon, option) {
       return Object.assign(document.createElement('div'), {
-        style: `display:inline-block; margin:7px; cursor:pointer; transition:all .2s ease-in-out; fill:${fill};`,
+        style: `display:inline-block; margin:7px; cursor:pointer; transition:all .2s ease-in-out; fill:${iconcolor};`,
         innerHTML: icon,
         onmouseover: function() { this.style.transform = 'scale(1.2)'; },
         onmouseout: function() { this.style.transform = 'scale(1)'; }
@@ -257,6 +257,10 @@ const Selection = (function() {
       Object.keys(options).forEach((option) => {
         menu[option] = options[option] === undefined ? menu[option] : options[option]
       })
+
+      bgcolor = options.backgroundColor || '#333';
+      iconcolor = options.iconColor || '#fff';
+
       return this;
     }
 
