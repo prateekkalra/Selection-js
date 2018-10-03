@@ -114,6 +114,7 @@ const Selection = (function() {
     let iconsize = 24 + buttonmargin;
     let top = 0;
     let left = 0;
+    let opacity = 1;
 
     function facebookButton() {
       const fbbtn = new Button(facebookConfig.icon, function() {
@@ -229,6 +230,7 @@ const Selection = (function() {
         'px;' +
         'transition:all .2s ease-in-out;' +
         'box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);' +
+        'opacity:' + opacity + ';' +
         'z-index:99999;';
 
       div.appendChild(_icons.icons);
@@ -308,6 +310,7 @@ const Selection = (function() {
 
       bgcolor = options.backgroundColor || '#333';
       iconcolor = options.iconColor || '#fff';
+      opacity = options.opacity || 1;
       return this;
     }
 
