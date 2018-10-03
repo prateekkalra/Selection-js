@@ -38,6 +38,7 @@ To get started with Selection.js, download the [Script](https://github.com/prate
     speak:true,
     backgroundColor: 'crimson',
     iconColor: '#fff',
+    opacity: 0.8,
   }).init();
 </script>
 ```
