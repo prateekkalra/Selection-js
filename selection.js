@@ -1,6 +1,6 @@
 const Selection = (function() {
   function copyTextToClipboard(text) {
-    let textArea = document.createElement('textarea');
+    const textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
     textArea.style.top = 0;
     textArea.style.left = 0;
@@ -18,8 +18,8 @@ const Selection = (function() {
     textArea.select();
 
     try {
-      let successful = document.execCommand('copy');
-      let msg = successful ? 'successful' : 'unsuccessful';
+      const successful = document.execCommand('copy');
+      const msg = successful ? 'successful' : 'unsuccessful';
       console.log('Copying text command was ' + msg);
     } catch (err) {
       console.log('Oops, unable to copy');
@@ -29,8 +29,8 @@ const Selection = (function() {
   }
 
   function popupwindow(url, title, w, h) {
-    let left = screen.width / 2 - w / 2;
-    let top = screen.height / 2 - h / 2;
+    const left = screen.width / 2 - w / 2;
+    const top = screen.height / 2 - h / 2;
     return window.open(
       url,
       title,
@@ -46,8 +46,7 @@ const Selection = (function() {
   }
 
   function getBrowserLanguage(){ 
-    let language = navigator.language || navigator.userLanguage || function (){ 
-      const languages = navigator.languages; 
+    const language = navigator.language || navigator.userLanguage || function (){ 
       if (navigator.languages.length > 0){ 
         return navigator.languages[0]; 
       } 
@@ -109,9 +108,9 @@ const Selection = (function() {
     let iconcolor = '#fff';
 
     let _icons = {};
-    let arrowsize = 5;
-    let buttonmargin = 7 * 2;
-    let iconsize = 24 + buttonmargin;
+    const arrowsize = 5;
+    const buttonmargin = 7 * 2;
+    const iconsize = 24 + buttonmargin;
     let top = 0;
     let left = 0;
 
@@ -156,7 +155,7 @@ const Selection = (function() {
 
     function speakButton() {
       const spbtn = new Button(speakConfig.icon, function() {
-        let speech = new SpeechSynthesisUtterance(text);
+        const speech = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(speech);
       });
       return spbtn;
@@ -203,7 +202,7 @@ const Selection = (function() {
 
     function moveTooltip() {
       setTooltipPosition();
-      let tooltip = document.querySelector('.selection');
+      const tooltip = document.querySelector('.selection');
       tooltip.style.top = `${top}px`;
       tooltip.style.left = `${left}px`;
     }
