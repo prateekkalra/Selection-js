@@ -34,14 +34,7 @@ const Selection = (function() {
     return window.open(
       url,
       title,
-      'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
-        w +
-        ', height=' +
-        h +
-        ', top=' +
-        top +
-        ', left=' +
-        left
+      `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
     );
   }
 
@@ -122,7 +115,7 @@ const Selection = (function() {
         if (sharelink.substring(0, 4) !== 'http') {
           sharelink = 'http://www.demourl.com';
         }
-        finalurl += text + '&u=' + sharelink;
+        finalurl += `${text}&u=${sharelink}`;
         popupwindow(finalurl, 'Share', 600, 500);
       });
       return fbbtn;
@@ -215,46 +208,13 @@ const Selection = (function() {
       const div = document.createElement('div');
       div.className = 'selection';
       div.style =
-        'line-height:0;' +
-        'position:absolute;' +
-        'background-color:' +
-        bgcolor +
-        ';' +
-        'border-radius:20px;' +
-        'top:' +
-        top +
-        'px;' +
-        'left:' +
-        left +
-        'px;' +
-        'transition:all .2s ease-in-out;' +
-        'box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);' +
-        'z-index:99999;';
+        `line-height:0;position:absolute;background-color:${bgcolor};border-radius:20px;top:${top}px;left:${left}px;transition:all .2s ease-in-out;box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);z-index:99999;`;
 
       div.appendChild(_icons.icons);
 
       const arrow = document.createElement('div');
-      arrow.style =
-        'position:absolute;' +
-        'border-left:' +
-        arrowsize +
-        'px solid transparent;' +
-        'border-right:' +
-        arrowsize +
-        'px solid transparent;' +
-        'border-top:' +
-        arrowsize +
-        'px solid ' +
-        bgcolor +
-        ';' +
-        'bottom:-' +
-        (arrowsize - 1) +
-        'px;' +
-        'left:' +
-        (iconsize * _icons.length / 2 - arrowsize) +
-        'px;' +
-        'width:0;' +
-        'height:0;';
+      arrow.style = `position:absolute;border-left:${arrowsize}px solid transparent;border-right:
+        ${arrowsize}px solid transparent;border-top:${arrowsize}px solid ${bgcolor};bottom:-${arrowsize - 1}px;left:${(iconsize * _icons.length / 2 - arrowsize)}px;width:0;height:0;`;
 
       if (!menu.disable) {
         div.appendChild(arrow);
@@ -325,7 +285,7 @@ const Selection = (function() {
 
   function Button(icon, clickFn) {
     const btn = document.createElement('div');
-    btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
+    btn.style = `display:inline-block; margin:7px; cursor:pointer; transition:all .2s ease-in-out;`;
     btn.innerHTML = icon;
     btn.onclick = clickFn;
     btn.onmouseover = function() {
