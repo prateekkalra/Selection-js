@@ -45,13 +45,13 @@ const Selection = (function() {
     );
   }
 
-  function getBrowserLanguage(){ 
-    let language = navigator.language || navigator.userLanguage || function (){ 
+  function getBrowserLanguage() { 
+    let language = navigator.language || navigator.userLanguage || function() { 
       const languages = navigator.languages; 
-      if (navigator.languages.length > 0){ 
-        return navigator.languages[0]; 
+      if (languages.length > 0) { 
+        return languages[0]; 
       } 
-    }() || 'en'; 
+    } () || 'en'; 
     return language.split('-')[0]; 
   } 
 
@@ -116,7 +116,7 @@ const Selection = (function() {
     let left = 0;
 
     function facebookButton() {
-      const fbbtn = new Button(facebookConfig.icon, function() {
+      return new Button(facebookConfig.icon, function() {
         let sharelink = window.location.href;
         let finalurl = facebookConfig.url;
         if (sharelink.substring(0, 4) !== 'http') {
@@ -124,50 +124,42 @@ const Selection = (function() {
         }
         finalurl += text + '&u=' + sharelink;
         popupwindow(finalurl, 'Share', 600, 500);
-      });
-      return fbbtn;
+      });;
     }
 
     function twitterButton() {
       const url = window.location.href;
-      const twbtn = new Button(twitterConfig.icon, function() {
+      return new Button(twitterConfig.icon, function() {
         popupwindow(twitterConfig.url + encodeURIComponent(text) + ' ' + url, 'Share', 550, 295);
         return false;
-      });
-
-      return twbtn;
+      });;
     }
 
     function searchButton() {
-      const searchbtn = new Button(searchConfig.icon, function() {
+      return new Button(searchConfig.icon, function() {
         popupwindow(searchConfig.url + encodeURIComponent(text), 'Search', 900, 540);
         return false;
-      });
-
-      return searchbtn;
+      });;
     }
 
     function copyButton() {
-      const cbtn = new Button(copyConfig.icon, function() {
+      return new Button(copyConfig.icon, function() {
         copyTextToClipboard(text);
-      });
-      return cbtn;
+      });;
     }
 
     function speakButton() {
-      const spbtn = new Button(speakConfig.icon, function() {
+      return new Button(speakConfig.icon, function() {
         let speech = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(speech);
-      });
-      return spbtn;
+      });;
     }
 
     function translateButton() {
-      const tsbtn = new Button(translateConfig.icon, function() {
+      return new Button(translateConfig.icon, function() {
         popupwindow(translateConfig.url + getBrowserLanguage() + '/' + text, 'Translate', 900, 540);
         return false;
-      });
-      return tsbtn;
+      });;
     }
 
     function IconStyle() {
@@ -181,8 +173,8 @@ const Selection = (function() {
       {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
       let count = 0;
-      myitems.forEach((item)=>{
-        if(menu[item.feature]){
+      myitems.forEach((item) => {
+        if (menu[item.feature]) {
           div.appendChild(item.call);
           count++;
         }
@@ -195,8 +187,7 @@ const Selection = (function() {
 
     function setTooltipPosition() {
       const position = selection.getRangeAt(0).getBoundingClientRect();
-      const DOCUMENT_SCROLL_TOP =
-        window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      const DOCUMENT_SCROLL_TOP = window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
       top = position.top + DOCUMENT_SCROLL_TOP - iconsize - arrowsize;
       left = position.left + (position.width - iconsize * _icons.length) / 2;
     }
