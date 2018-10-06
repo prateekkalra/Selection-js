@@ -2,12 +2,11 @@
 <html>
 <head>
 	<title>Selection.js</title>
-		<link rel="shortcut icon" href="favicon.ico">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="index.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-	<link href="https://fonts.googleapis.com/css?family=Bree+Serif|Jua|Francois+One|Noticia+Text" rel="stylesheet">
-
+	<link href="https://fonts.googleapis.com/css?family=Bree+Serif|Jua|Francois+One|Noticia+Text" rel="stylesheet">	
 </head>
 <body>
 	<div class="container center-block">
@@ -16,8 +15,7 @@
 			<a href="https://drive.google.com/file/d/1wXOwKf50dAGyyv7_jAwN8uMSY1gjirUo/view?usp=sharing" class="lcolor btn-lg" download="selection.min.js"> <i class="fas fa-download"></i>   Download</a>
 			<a href="https://github.com/prateekkalra/Selection.js" target="_" class=" lcolor btn-lg"><i class="fab fa-github"></i>  Github</a>
 		</div>
-
-		<h3 class="text-center center-block" style="width: 75%;font-family: Jua">A lightweight javascript library which provides users with a set of options in the form of a small popover over the selected portion of text.</h3>
+		<h3 class="text-center center-block" style="width: 75%;font-family: Jua">A lightweight JavaScript library which provides users with a set of options in the form of a small popover over the selected portion of text.</h3>
 		<div id="note" class="center-block">
 			<h2 class="text-uppercase text-center" style="font-family: Bree Serif">Try selecting any text on this page</h2>
 		</div>
@@ -27,7 +25,7 @@
 				<div class="list-group text-center center-block" style="width: 60%">
 					<a class="list-group-item">Lightweight</a>
 					<a class="list-group-item">No dependencies</a>
-					<a class="list-group-item">No need to setup api for facebook and twitter</a>
+					<a class="list-group-item">No need to setup API for Facebook and Twitter</a>
 					<a class="list-group-item">Customizable background and icon color</a>
 					<a class="list-group-item">Customizable popover options</a>
 				</div>
@@ -37,7 +35,7 @@
 				<div class="list-group text-center center-block" style="width: 60%">
 					<a class="list-group-item">Share on Twitter</a>
 					<a class="list-group-item">Share on Facebook</a>
-					<a class="list-group-item">Google Search the text </a>
+					<a class="list-group-item">Google search the text </a>
 					<a class="list-group-item">Copy the text</a>
 					<a class="list-group-item">Speak up the text</a>
 				</div>
@@ -55,25 +53,22 @@
 				<h2 class="header text-center">Advanced Usage</h2>
 				<script src="https://gist.github.com/prateekkalra/a858930c0955576892a8aa400a18b472.js"></script>
 			</div>
-		</div>
-		
-	</div>
-	
-	
+		</div>		
+	</div>	
 </body>
 <script type="text/javascript" src="index.js"></script>
 <script type="text/javascript" src="selection.js"></script>
 <script type="text/javascript">
-	var selection = new Selection();
-  selection.config({
-    facebook: true,
-    twitter: true,
-    search:true,
-    copy:true,
-    speak:true,
-    translate:true,
-    backgroundColor: 'crimson',
-    iconColor: '#fff',
-  }).init();
+	let selection = new Selection();
+	selection.config({
+    	facebook: true,
+    	twitter: true,
+    	search:true,
+    	copy:true,
+    	speak:true,
+    	translate:true,
+    	backgroundColor: 'crimson',
+    	iconColor: '#fff',
+  	}).init();
 </script>
 </html>
