@@ -1,5 +1,5 @@
-const Selection = (function() {
-  function copyTextToClipboard(text) {
+const Selection = (() => {
+  copyTextToClipboard = (text) => {
     let textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
     textArea.style.top = 0;
@@ -28,7 +28,7 @@ const Selection = (function() {
     document.body.removeChild(textArea);
   }
 
-  function popupwindow(url, title, w, h) {
+  popupwindow = (url, title, w, h) => {
     let left = screen.width / 2 - w / 2;
     let top = screen.height / 2 - h / 2;
     return window.open(
@@ -45,7 +45,7 @@ const Selection = (function() {
     );
   }
 
-  function getBrowserLanguage() { 
+  getBrowserLanguage = () => { 
     let language = navigator.language || navigator.userLanguage || function() { 
       const languages = navigator.languages; 
       if (languages.length > 0) { 
@@ -55,7 +55,7 @@ const Selection = (function() {
     return language.split('-')[0]; 
   } 
 
-  function _selection() {
+  _selection = () => {
     const menu = {
       twitter: true,
       facebook: true,
@@ -107,7 +107,6 @@ const Selection = (function() {
     let text = '';
     let bgcolor = 'crimson';
     let iconcolor = '#fff';
-
     let _icons = {};
     let arrowsize = 5;
     let buttonmargin = 7 * 2;
@@ -115,60 +114,47 @@ const Selection = (function() {
     let top = 0;
     let left = 0;
 
-    function facebookButton() {
-      return new Button(facebookConfig.icon, function() {
+    facebookButton = () => {
+      return new Button(facebookConfig.icon, () => {
         let sharelink = window.location.href;
         let finalurl = facebookConfig.url;
-        if (sharelink.substring(0, 4) !== 'http') {
-          sharelink = 'http://www.demourl.com';
-        }
+        sharelink.substring(0, 4) !== 'http' ? sharelink = 'http://www.demourl.com' : "" ;
         finalurl += text + '&u=' + sharelink;
         popupwindow(finalurl, 'Share', 600, 500);
       });
     }
 
-    function twitterButton() {
+    twitterButton = () => {
       const url = window.location.href;
-      return new Button(twitterConfig.icon, function() {
+      return new Button(twitterConfig.icon, () => {
         popupwindow(twitterConfig.url + encodeURIComponent(text) + ' ' + url, 'Share', 550, 295);
         return false;
       });
     }
 
-    function searchButton() {
-      return new Button(searchConfig.icon, function() {
+    searchButton = () => {
+      return new Button(searchConfig.icon, () => {
         popupwindow(searchConfig.url + encodeURIComponent(text), 'Search', 900, 540);
         return false;
       });
     }
 
-    function copyButton() {
-      return new Button(copyConfig.icon, function() {
-        copyTextToClipboard(text);
-      });
-    }
+    copyButton = () => new Button(copyConfig.icon, () => copyTextToClipboard(text));
 
-    function speakButton() {
-      return new Button(speakConfig.icon, function() {
-        let speech = new SpeechSynthesisUtterance(text);
-        window.speechSynthesis.speak(speech);
-      });
-    }
+    speakButton = () => new Button(speakConfig.icon, () => window.speechSynthesis.speak(new SpeechSynthesisUtterance(text)));
 
-    function translateButton() {
-      return new Button(translateConfig.icon, function() {
-        popupwindow(translateConfig.url + getBrowserLanguage() + '/' + text, 'Translate', 900, 540);
-        return false;
-      });
-    }
+    translateButton = () => new Button(translateConfig.icon, () => {
+      popupwindow(translateConfig.url + getBrowserLanguage() + '/' + text, 'Translate', 900, 540);
+      return false;
+    });
 
-    function IconStyle() {
+    iconStyle = () => {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
       document.body.appendChild(style);
     }
 
-    function appendIcons() {
+    appendIcons = () => {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
       {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
@@ -178,28 +164,28 @@ const Selection = (function() {
           div.appendChild(item.call);
           count++;
         }
-      })
+      });
       return {
         icons: div,
         length: count
       };
     }
 
-    function setTooltipPosition() {
+    setTooltipPosition = () => {
       const position = selection.getRangeAt(0).getBoundingClientRect();
       const DOCUMENT_SCROLL_TOP = window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
       top = position.top + DOCUMENT_SCROLL_TOP - iconsize - arrowsize;
       left = position.left + (position.width - iconsize * _icons.length) / 2;
     }
 
-    function moveTooltip() {
+    moveTooltip = () => {
       setTooltipPosition();
       let tooltip = document.querySelector('.selection');
       tooltip.style.top = `${top}px`;
       tooltip.style.left = `${left}px`;
     }
 
-    function drawTooltip() {
+    drawTooltip = () => {
       _icons = appendIcons();
       setTooltipPosition();
 
@@ -247,48 +233,38 @@ const Selection = (function() {
         'width:0;' +
         'height:0;';
 
-      if (!menu.disable) {
-        div.appendChild(arrow);
-      }
+      !menu.disable ? div.appendChild(arrow) : "";
 
       document.body.appendChild(div);
     }
 
-    function attachEvents() {
-      function hasSelection() {
-        return !!window.getSelection().toString();
-      }
+    attachEvents = () => {
+      hasSelection = () => !!window.getSelection().toString();
 
-      function hasTooltipDrawn() {
-        return !!document.querySelector('.selection');
-      }
+      hasTooltipDrawn = () => !!document.querySelector('.selection');
 
-      window.addEventListener(
-        'mouseup',
-        function() {
-          setTimeout(function mouseTimeout() {
-            if (hasTooltipDrawn()) {
-              if (hasSelection()) {
-                selection = window.getSelection();
-                text = selection.toString();
-                moveTooltip();
-                return;
-              } else {
-                document.querySelector('.selection').remove();
-              }
-            }
+      window.addEventListener('mouseup', () => {
+        setTimeout(mouseTimeout = () => {
+          if (hasTooltipDrawn()) {
             if (hasSelection()) {
               selection = window.getSelection();
               text = selection.toString();
-              drawTooltip();
+              moveTooltip();
+              return;
+            } else {
+              document.querySelector('.selection').remove();
             }
-          }, 10);
-        },
-        false
-      );
+          }
+          if (hasSelection()) {
+            selection = window.getSelection();
+            text = selection.toString();
+            drawTooltip();
+          }
+        }, 10);
+      }, false );
     }
 
-    function config(options) {
+    config = (options) => {
       menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
       menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
       menu.search = options.search === undefined ? menu.search : options.search;
@@ -302,8 +278,8 @@ const Selection = (function() {
       return this;
     }
 
-    function init() {
-      IconStyle();
+    init = () => {
+      iconStyle();
       attachEvents();
       return this;
     }
@@ -314,7 +290,7 @@ const Selection = (function() {
     };
   }
 
-  function Button(icon, clickFn) {
+  Button = (icon, clickFn) => {
     const btn = document.createElement('div');
     btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
     btn.innerHTML = icon;
