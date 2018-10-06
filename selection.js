@@ -51,7 +51,7 @@ const Selection = (function() {
       if (languages.length > 0) { 
         return languages[0]; 
       } 
-    } () || 'en'; 
+    }() || 'en'; 
     return language.split('-')[0]; 
   } 
 
