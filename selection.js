@@ -124,7 +124,7 @@ const Selection = (function() {
         }
         finalurl += text + '&u=' + sharelink;
         popupwindow(finalurl, 'Share', 600, 500);
-      });;
+      });
     }
 
     function twitterButton() {
@@ -132,34 +132,34 @@ const Selection = (function() {
       return new Button(twitterConfig.icon, function() {
         popupwindow(twitterConfig.url + encodeURIComponent(text) + ' ' + url, 'Share', 550, 295);
         return false;
-      });;
+      });
     }
 
     function searchButton() {
       return new Button(searchConfig.icon, function() {
         popupwindow(searchConfig.url + encodeURIComponent(text), 'Search', 900, 540);
         return false;
-      });;
+      });
     }
 
     function copyButton() {
       return new Button(copyConfig.icon, function() {
         copyTextToClipboard(text);
-      });;
+      });
     }
 
     function speakButton() {
       return new Button(speakConfig.icon, function() {
         let speech = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(speech);
-      });;
+      });
     }
 
     function translateButton() {
       return new Button(translateConfig.icon, function() {
         popupwindow(translateConfig.url + getBrowserLanguage() + '/' + text, 'Translate', 900, 540);
         return false;
-      });;
+      });
     }
 
     function IconStyle() {
