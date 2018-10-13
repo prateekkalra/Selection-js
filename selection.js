@@ -193,11 +193,23 @@ const Selection = (function() {
       };
     }
 
+    let isToolTipOnTop = true;
     function setTooltipPosition() {
       const position = selection.getRangeAt(0).getBoundingClientRect();
       const DOCUMENT_SCROLL_TOP =
-        window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      top = position.top + DOCUMENT_SCROLL_TOP - iconsize - arrowsize;
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      if (
+        position.top >=
+        iconsize /*the tooltip div's height is auto, content height will be equal to the iconsize*/
+      ) {
+        top = position.top + DOCUMENT_SCROLL_TOP - iconsize - arrowsize;
+        isToolTipOnTop = true;
+      } else {
+        top = position.top + DOCUMENT_SCROLL_TOP + position.height + arrowsize;
+        isToolTipOnTop = false;
+      }
       left = position.left + (position.width - iconsize * _icons.length) / 2;
     }
 
@@ -234,27 +246,18 @@ const Selection = (function() {
       div.appendChild(_icons.icons);
 
       const arrow = document.createElement('div');
-      arrow.style =
-        'position:absolute;' +
-        'border-left:' +
-        arrowsize +
-        'px solid transparent;' +
-        'border-right:' +
-        arrowsize +
-        'px solid transparent;' +
-        'border-top:' +
-        arrowsize +
-        'px solid ' +
-        bgcolor +
-        ';' +
-        'bottom:-' +
-        (arrowsize - 1) +
-        'px;' +
-        'left:' +
-        (iconsize * _icons.length / 2 - arrowsize) +
-        'px;' +
-        'width:0;' +
-        'height:0;';
+      arrow.style = `position:absolute;
+            border-left: ${arrowsize}px solid transparent;
+            border-right: ${arrowsize}px solid transparent;
+            border-top: ${arrowsize}px solid ${bgcolor};
+            ${!isToolTipOnTop
+              ? `top:-${arrowsize - 1}px;
+                transform: rotate(180deg);`
+              : `bottom:-${arrowsize - 1}px;`}
+            left:${(iconsize * _icons.length) / 2 - arrowsize}px;
+            width:0;
+            height:0;`;
+      
 
       if (!menu.disable) {
         div.appendChild(arrow);
