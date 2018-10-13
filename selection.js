@@ -206,6 +206,7 @@ const Selection = (function() {
       let tooltip = document.querySelector('.selection');
       tooltip.style.top = `${top}px`;
       tooltip.style.left = `${left}px`;
+      focusFirstButton();
     }
 
     function drawTooltip() {
@@ -261,6 +262,26 @@ const Selection = (function() {
       }
 
       document.body.appendChild(div);
+      focusFirstButton();
+
+      window.addEventListener('keydown', escapeTooltip);
+
+    }
+
+    function escapeTooltip(e){
+        if(e.keyCode === 27){
+          removeTooltip();
+        }
+    }
+
+    function removeTooltip(){
+      document.querySelector('.selection').remove();
+      window.removeEventListener('keydown', escapeTooltip);
+    }
+
+    function focusFirstButton(){
+      let tooltip = document.querySelector('.selection');
+      tooltip.getElementsByTagName('button')[0].focus();
     }
 
     function attachEvents() {
@@ -271,7 +292,7 @@ const Selection = (function() {
       function hasTooltipDrawn() {
         return !!document.querySelector('.selection');
       }
-
+      
       window.addEventListener(
         'mouseup',
         function() {
@@ -283,7 +304,7 @@ const Selection = (function() {
                 moveTooltip();
                 return;
               } else {
-                document.querySelector('.selection').remove();
+                removeTooltip();
               }
             }
             if (hasSelection()) {
@@ -324,8 +345,8 @@ const Selection = (function() {
   }
 
   function Button(icon, clickFn) {
-    const btn = document.createElement('div');
-    btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
+    const btn = document.createElement('button');
+    btn.style = 'background-color:transparent;' + ' border:0px;' + 'margin:6px 1px;' + 'transition:all .2s ease-in-out;';
     btn.innerHTML = icon;
     btn.onclick = clickFn;
     btn.onmouseover = function() {
