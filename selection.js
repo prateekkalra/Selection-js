@@ -181,9 +181,15 @@ const Selection = (function() {
       {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
       let count = 0;
-      myitems.forEach((item)=>{
+      myitems.forEach((item, index)=>{
         if(menu[item.feature]){
           div.appendChild(item.call);
+          if (index === 0) {
+            item.call.style.margin = '7px 0 7px 7px';
+          }
+          if (index === myitems.length-1) {
+            item.call.style.margin = '7px 7px 7px 0';
+          }
           count++;
         }
       })
