@@ -40,6 +40,7 @@
 					<a class="list-group-item">Google Search the text </a>
 					<a class="list-group-item">Copy the text</a>
 					<a class="list-group-item">Speak up the text</a>
+					<a class="list-group-item">Look up definition of the text</a>
 				</div>
 			</div>
 		</div>
@@ -64,14 +65,15 @@
 <script type="text/javascript" src="index.js"></script>
 <script type="text/javascript" src="selection.js"></script>
 <script type="text/javascript">
-	var selection = new Selection();
+  var selection = new Selection();
   selection.config({
     facebook: true,
     twitter: true,
-    search:true,
-    copy:true,
-    speak:true,
-    translate:true,
+    search: true,
+    copy: true,
+    speak: true,
+	translate: true,
+	definition: true,
     backgroundColor: 'crimson',
     iconColor: '#fff',
   }).init();

@@ -63,6 +63,7 @@ const Selection = (function() {
       copy: true,
       speak: true,
       translate: true,
+      definition: true,
       disable: false
     };
     const twitterConfig = {
@@ -101,6 +102,27 @@ const Selection = (function() {
         '<path id="svg_17" d="m16,17c-0.157,0 -0.311,-0.073 -0.408,-0.21c-0.16,-0.225 -0.107,-0.537 0.118,-0.697c2.189,-1.555 3.79,-4.727 3.79,-5.592c0,-0.276 0.224,-0.5 0.5,-0.5s0.5,0.224 0.5,0.5c0,1.318 -1.927,4.785 -4.21,6.408c-0.088,0.061 -0.189,0.091 -0.29,0.091z"/>'+
         '<path id="svg_19" d="m20,18c-0.121,0 -0.242,-0.043 -0.337,-0.131c-0.363,-0.332 -3.558,-3.283 -4.126,-4.681c-0.104,-0.256 0.02,-0.547 0.275,-0.651c0.253,-0.103 0.547,0.019 0.651,0.275c0.409,1.007 2.936,3.459 3.875,4.319c0.204,0.187 0.217,0.502 0.031,0.707c-0.099,0.107 -0.234,0.162 -0.369,0.162z"/>'+
         '</svg>'
+    };
+    const definitionConfig = {
+      url: 'https://www.dictionary.com/browse/',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon">' +
+      '<path d="m17.048 23.584c-1.3282-0.69249-3.2941-3.0529-3.8125-4.5776l-0.38248-1.1249-1.0265 0.15515c-0.56456 0.0853-2.3284 0.23846-3.9196 0.34027-2.5879 ' +
+      '0.16559-2.9068 0.13787-3.0228-0.26275-0.27163-0.93876 0.23912-1.1685 3.0188-1.3577 1.4816-0.10088 3.1149-0.25259 3.6296-0.33712 0.92418-0.15178 0.93425-0.16426 ' +
+      '0.80566-0.99808l-0.13022-0.84437-5.3161-1.7121c-5.4071-1.7414-5.9585-2.0476-5.2885-2.9361 0.23222-0.30797 1.0739-0.10838 5.3208 1.2617 2.7747 0.89515 5.1648 ' +
+      '1.6276 5.3113 1.6276s0.29538-0.3338 0.33078-0.74178c0.06217-0.71661-0.14434-0.88741-6.0882-5.0353-5.384-3.7572-6.1525-4.3721-6.1525-4.9227 0-0.47506 ' +
+      '0.11209-0.62718 0.45763-0.62103 0.25169 4e-3 3.1119 1.8714 6.3559 4.1488 5.1918 3.6447 5.9288 4.0899 6.1525 3.7166 0.13983-0.23323 0.25424-0.51354 ' +
+      '0.25424-0.62292 0-0.10939-1.4644-1.813-3.2542-3.7859-1.7898-1.9729-3.2542-3.7173-3.2542-3.8765 0-0.33463 0.41448-0.93686 0.64479-0.93686 0.08616 0 1.2348 ' +
+      '1.1856 2.5525 2.6347 4.6046 5.0636 4.1589 4.6741 4.6926 4.1003l0.46625-0.50124-1.3558-2.7006c-1.3654-2.7197-1.5272-3.5332-0.70285-3.5332 0.29566 0 0.78925 ' +
+      '0.75136 1.7475 2.6602l1.3355 2.6602 0.85206-0.42366c0.52067-0.25889 1.5264-0.42785 2.5858-0.43442 1.5603-0.01 1.8706 0.0786 3.1017 0.88236 1.2924 0.8438 ' +
+      '1.368 0.94431 1.368 1.8203 0 1.0968-0.08986 1.1234-1.0206 0.30256-1.1975-1.0561-2.0732-1.3987-3.5557-1.3911-6.5269 0.0335-8.5281 11.681-2.6647 15.509 1.2073 ' +
+      '0.78824 1.454 0.85291 2.9156 0.76438 1.2499-0.0757 1.8309-0.25782 2.6747-0.83848 0.59289-0.40797 1.2129-0.74177 1.3778-0.74177 0.20709 0 0.27992 0.22943 0.23547 ' +
+      '0.74177-0.05252 0.60532-0.28885 0.89064-1.2847 1.551-1.6322 1.0823-4.285 1.2521-5.9554 0.38121zm0.4466-4.9293c-0.0927-0.32036 0.77534-7.5943 1.0586-8.8712 ' +
+      '0.08826-0.39779 0.35642-0.47204 1.7049-0.47204 1.9482 0 2.5191 0.26292 3.0606 1.4094 0.63404 1.3425 0.50098 4.5557-0.25107 6.0628-0.78882 1.5808-1.9337 ' +
+      '2.2383-3.8976 2.2383-1.1363 0-1.5986-0.10133-1.6755-0.36722zm3.6439-2.0727c0.88404-0.92222 1.2423-3.6293 ' +
+      '0.63307-4.783-0.23199-0.43924-0.5216-0.59949-1.0835-0.59949h-0.76684l-0.25536 2.2253c-0.14045 1.2239-0.30501 2.5591-0.3657 2.9671-0.10345 0.69546-0.06602 ' +
+      '0.74177 0.59952 0.74177 0.40715 0 0.9354-0.23528 1.2388-0.55174zm3.0157 1.9004c0-0.37089 0.04617-0.52262 0.10259-0.33717 0.05642 0.18544 0.05642 0.48889 0 ' +
+      '0.67434-0.05642 0.18544-0.10259 0.0337-0.10259-0.33717z" />' +
+      '</svg>'
     };
 
     let selection = '';
@@ -170,6 +192,15 @@ const Selection = (function() {
       return tsbtn;
     }
 
+    function definitionButton() {
+      const dbtn = new Button(definitionConfig.icon, function() {
+        let firstWord = text.trim().toLowerCase().replace(/\s.*$/, '');
+        popupwindow(definitionConfig.url + firstWord, 'Definition', 900, 540);
+        return false;
+      });
+      return dbtn;
+    }
+
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
@@ -178,7 +209,7 @@ const Selection = (function() {
 
     function appendIcons() {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},{feature:'definition',call:definitionButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
@@ -304,6 +335,7 @@ const Selection = (function() {
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
+      menu.definition = options.definition === undefined ? menu.definition : options.definition;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
 
       bgcolor = options.backgroundColor || '#333';
