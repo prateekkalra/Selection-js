@@ -63,6 +63,7 @@ const Selection = (function() {
       copy: true,
       speak: true,
       translate: true,
+      github: true,
       disable: false
     };
     const twitterConfig = {
@@ -101,6 +102,11 @@ const Selection = (function() {
         '<path id="svg_17" d="m16,17c-0.157,0 -0.311,-0.073 -0.408,-0.21c-0.16,-0.225 -0.107,-0.537 0.118,-0.697c2.189,-1.555 3.79,-4.727 3.79,-5.592c0,-0.276 0.224,-0.5 0.5,-0.5s0.5,0.224 0.5,0.5c0,1.318 -1.927,4.785 -4.21,6.408c-0.088,0.061 -0.189,0.091 -0.29,0.091z"/>'+
         '<path id="svg_19" d="m20,18c-0.121,0 -0.242,-0.043 -0.337,-0.131c-0.363,-0.332 -3.558,-3.283 -4.126,-4.681c-0.104,-0.256 0.02,-0.547 0.275,-0.651c0.253,-0.103 0.547,0.019 0.651,0.275c0.409,1.007 2.936,3.459 3.875,4.319c0.204,0.187 0.217,0.502 0.031,0.707c-0.099,0.107 -0.234,0.162 -0.369,0.162z"/>'+
         '</svg>'
+    };
+
+    const githubConfig = {
+      url: 'https://github.com/search?q=',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>'
     };
 
     let selection = '';
@@ -170,6 +176,14 @@ const Selection = (function() {
       return tsbtn;
     }
 
+    function githubButton() {
+      const ghbtn = new Button(githubConfig.icon, function() {
+        popupwindow(githubConfig.url + text, 'GitHub', 900, 540);
+        return false;
+      });
+      return ghbtn;
+    }
+
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
@@ -178,7 +192,7 @@ const Selection = (function() {
 
     function appendIcons() {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},{feature:'github',call:githubButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
@@ -304,6 +318,7 @@ const Selection = (function() {
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
+      menu.github = options.github === undefined ? menu.github : options.github;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
 
       bgcolor = options.backgroundColor || '#333';
