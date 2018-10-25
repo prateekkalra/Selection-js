@@ -45,15 +45,15 @@ const Selection = (function() {
     );
   }
 
-  function getBrowserLanguage(){ 
-    let language = navigator.language || navigator.userLanguage || function (){ 
-      const languages = navigator.languages; 
-      if (navigator.languages.length > 0){ 
-        return navigator.languages[0]; 
-      } 
-    }() || 'en'; 
-    return language.split('-')[0]; 
-  } 
+  function getBrowserLanguage(){
+    let language = navigator.language || navigator.userLanguage || function (){
+      const languages = navigator.languages;
+      if (languages.length > 0){
+        return languages[0];
+      }
+    }() || 'en';
+    return language.split('-')[0];
+  }
 
   function _selection() {
     const menu = {
@@ -263,6 +263,11 @@ const Selection = (function() {
       document.body.appendChild(div);
     }
 
+    function getText() {
+      selection = window.getSelection();
+      text = selection.toString();
+    }
+
     function attachEvents() {
       function hasSelection() {
         return !!window.getSelection().toString();
@@ -278,17 +283,14 @@ const Selection = (function() {
           setTimeout(function mouseTimeout() {
             if (hasTooltipDrawn()) {
               if (hasSelection()) {
-                selection = window.getSelection();
-                text = selection.toString();
+                getText();
                 moveTooltip();
                 return;
-              } else {
-                document.querySelector('.selection').remove();
               }
+              document.querySelector('.selection').remove();
             }
             if (hasSelection()) {
-              selection = window.getSelection();
-              text = selection.toString();
+              getText();
               drawTooltip();
             }
           }, 10);
