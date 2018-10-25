@@ -286,9 +286,8 @@ const Selection = (function() {
                 getText();
                 moveTooltip();
                 return;
-              } else {
-                document.querySelector('.selection').remove();
               }
+              document.querySelector('.selection').remove();
             }
             if (hasSelection()) {
               getText();
