@@ -263,6 +263,11 @@ const Selection = (function() {
       document.body.appendChild(div);
     }
 
+    function getText() {
+      selection = window.getSelection();
+      text = selection.toString();
+    }
+
     function attachEvents() {
       function hasSelection() {
         return !!window.getSelection().toString();
@@ -278,8 +283,7 @@ const Selection = (function() {
           setTimeout(function mouseTimeout() {
             if (hasTooltipDrawn()) {
               if (hasSelection()) {
-                selection = window.getSelection();
-                text = selection.toString();
+                getText();
                 moveTooltip();
                 return;
               } else {
@@ -287,8 +291,7 @@ const Selection = (function() {
               }
             }
             if (hasSelection()) {
-              selection = window.getSelection();
-              text = selection.toString();
+              getText();
               drawTooltip();
             }
           }, 10);
