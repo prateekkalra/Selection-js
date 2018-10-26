@@ -63,7 +63,8 @@ const Selection = (function() {
       copy: true,
       speak: true,
       translate: true,
-      disable: false
+      disable: false,
+      map: true
     };
     const twitterConfig = {
       url: 'https://twitter.com/intent/tweet?text=',
@@ -101,6 +102,11 @@ const Selection = (function() {
         '<path id="svg_17" d="m16,17c-0.157,0 -0.311,-0.073 -0.408,-0.21c-0.16,-0.225 -0.107,-0.537 0.118,-0.697c2.189,-1.555 3.79,-4.727 3.79,-5.592c0,-0.276 0.224,-0.5 0.5,-0.5s0.5,0.224 0.5,0.5c0,1.318 -1.927,4.785 -4.21,6.408c-0.088,0.061 -0.189,0.091 -0.29,0.091z"/>'+
         '<path id="svg_19" d="m20,18c-0.121,0 -0.242,-0.043 -0.337,-0.131c-0.363,-0.332 -3.558,-3.283 -4.126,-4.681c-0.104,-0.256 0.02,-0.547 0.275,-0.651c0.253,-0.103 0.547,0.019 0.651,0.275c0.409,1.007 2.936,3.459 3.875,4.319c0.204,0.187 0.217,0.502 0.031,0.707c-0.099,0.107 -0.234,0.162 -0.369,0.162z"/>'+
         '</svg>'
+    };
+
+    const mapConfig = {
+      url: 'https://www.google.com/maps/search/?api=1&query=',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" class="selection__icon">'+ '<path d="M 18 1 C 16.373466 1 14.941036 1.793645 14.027344 3 L 5 3 C 3.895 3 3 3.895 3 5 L 3 19 C 3 19.178 3.0312188 19.346719 3.0742188 19.511719 L 13.650391 8.9355469 C 13.921917 9.5969385 14.236041 10.22471 14.542969 10.810547 C 14.550361 10.824662 14.55512 10.837469 14.5625 10.851562 L 13.414062 12 L 20.925781 19.511719 C 20.968781 19.346719 21 19.178 21 19 L 21 11.660156 C 21.158385 11.323154 21.328472 10.980602 21.509766 10.626953 C 22.208766 9.2619531 23 7.714 23 6 C 23 3.243 20.757 1 18 1 z M 17.972656 3.0292969 C 19.629656 3.0292969 20.972656 4.3722969 20.972656 6.0292969 C 20.971656 8.5252969 18.376953 11.030062 18.376953 13.664062 C 18.376953 13.870062 18.176703 14.023437 17.970703 14.023438 C 17.764703 14.023438 17.595703 13.840766 17.595703 13.634766 C 17.595703 11.000766 14.972656 8.7552969 14.972656 6.0292969 C 14.972656 4.3722969 16.315656 3.0292969 17.972656 3.0292969 z M 8.0019531 5 C 8.7799531 5 9.4874844 5.29525 10.021484 5.78125 L 9.1777344 6.6269531 C 8.8607344 6.3559531 8.4509531 6.1894531 8.0019531 6.1894531 C 7.0019531 6.1894531 6.1914063 7 6.1914062 8 C 6.1914062 8.999 7.0019531 9.8105469 8.0019531 9.8105469 C 8.8409531 9.8105469 9.4217656 9.3121875 9.6347656 8.6171875 L 8.0019531 8.6171875 L 8.0019531 7.4726562 L 10.828125 7.4765625 C 11.074125 8.6455625 10.519953 11 8.0019531 11 C 6.3439531 11 5 9.657 5 8 C 5 6.343 6.3439531 5 8.0019531 5 z M 18 5 A 1 1 0 0 0 17 6 A 1 1 0 0 0 18 7 A 1 1 0 0 0 19 6 A 1 1 0 0 0 18 5 z M 12 13.414062 L 4.4882812 20.925781 C 4.6532812 20.968781 4.822 21 5 21 L 19 21 C 19.178 21 19.346719 20.968781 19.511719 20.925781 L 12 13.414062 z"></path></svg>'
     };
 
     let selection = '';
@@ -170,6 +176,14 @@ const Selection = (function() {
       return tsbtn;
     }
 
+    function mapButton(){
+      const mpbtn = new Button(mapConfig.icon, function() {
+        popupwindow(mapConfig.url + encodeURIComponent(text), 'Map', 900, 540);
+        return false;
+      });
+      return mpbtn;
+    }
+
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
@@ -178,7 +192,7 @@ const Selection = (function() {
 
     function appendIcons() {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},{feature:'map',call:mapButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
@@ -304,6 +318,7 @@ const Selection = (function() {
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
+      menu.map = options.map === undefined ? menu.mapButton : options.map;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
 
       bgcolor = options.backgroundColor || '#333';
