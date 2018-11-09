@@ -59,10 +59,13 @@ const Selection = (function() {
     const menu = {
       twitter: true,
       facebook: true,
+      email: true,
       search: true,
       copy: true,
       speak: true,
       translate: true,
+      dictionary: true,
+      colorop: true,
       disable: false
     };
     const twitterConfig = {
@@ -75,6 +78,19 @@ const Selection = (function() {
       icon:
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M20,2H4C2.9,2,2,2.9,2,4v16c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M18.4,7.4H17c-0.9,0-1,0.3-1,1l0,1.3 h2.1L18,12h-1.9v7h-3.2v-7h-1.2V9.6h1.2V8.1c0-2,0.8-3.1,3.1-3.1h2.4V7.4z"/></svg>'
     };
+    const emailConfig = {
+      url: 'mailto:?',
+      icon:
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 17" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M14.5 2h-13c-0.825 0-1.5 0.675-1.5 1.5v10c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-10c0-0.825-0.675-1.5-1.5-1.5zM6.23 8.6l-4.23 3.295v-7.838l4.23 4.543zM2.756 4h10.488l-5.244 3.938-5.244-3.938zM6.395 8.777l1.605 1.723 1.605-1.723 3.29 4.223h-9.79l3.29-4.223zM9.77 8.6l4.23-4.543v7.838l-4.23-3.295z"/></svg>'
+    };
+    const dictionaryConfig = {
+      url: 'https://www.dictionary.com/browse/',
+      icon:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 15 17" class="selection__icon">' + 
+        '<path d="M14 2v13h-10.5c-0.829 0-1.5-0.672-1.5-1.5s0.671-1.5 1.5-1.5h9.5v-12h-10c-1.1 0-2 0.9-2 2v12c0 1.1 0.9 2 2 2h12v-14h-1z"></path>' +
+        '<path d="M3.501 13v0c-0 0-0.001 0-0.001 0-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0 0 0.001-0 0.001-0v0h9.498v-1h-9.498z"></path>' +
+        '</svg>'
+    }
     const searchConfig = {
       url: 'https://www.google.co.in/search?q=',
       icon:
@@ -102,7 +118,12 @@ const Selection = (function() {
         '<path id="svg_19" d="m20,18c-0.121,0 -0.242,-0.043 -0.337,-0.131c-0.363,-0.332 -3.558,-3.283 -4.126,-4.681c-0.104,-0.256 0.02,-0.547 0.275,-0.651c0.253,-0.103 0.547,0.019 0.651,0.275c0.409,1.007 2.936,3.459 3.875,4.319c0.204,0.187 0.217,0.502 0.031,0.707c-0.099,0.107 -0.234,0.162 -0.369,0.162z"/>'+
         '</svg>'
     };
+    const coloropConfig = {
+      icon:
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 17" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M13.51 7.393c-1.027-2.866-3.205-5.44-5.51-7.393-2.305 1.953-4.482 4.527-5.51 7.393-0.635 1.772-0.698 3.696 0.197 5.397 1.029 1.955 3.104 3.21 5.313 3.21s4.284-1.255 5.313-3.21c0.895-1.701 0.832-3.624 0.197-5.397zM11.543 11.859c-0.684 1.301-2.075 2.141-3.543 2.141-0.861 0-1.696-0.29-2.377-0.791 0.207 0.027 0.416 0.041 0.627 0.041 1.835 0 3.573-1.050 4.428-2.676 0.701-1.333 0.64-2.716 0.373-3.818 0.227 0.44 0.42 0.878 0.576 1.311 0.353 0.985 0.625 2.443-0.084 3.791z"/></svg>'
+    };
 
+    let count = 0;
     let selection = '';
     let text = '';
     let bgcolor = 'crimson';
@@ -138,6 +159,15 @@ const Selection = (function() {
       return twbtn;
     }
 
+    function emailButton() {
+      const emailbtn = new Button(emailConfig.icon, function() {
+        window.location.href = emailConfig.url +'body=' + encodeURIComponent(text);
+        return false;
+      });
+
+      return emailbtn;
+    }
+
     function searchButton() {
       const searchbtn = new Button(searchConfig.icon, function() {
         popupwindow(searchConfig.url + encodeURIComponent(text), 'Search', 900, 540);
@@ -162,12 +192,27 @@ const Selection = (function() {
       return spbtn;
     }
 
+    function dictionaryButton() {
+      const dict = new Button(dictionaryConfig.icon, function() {
+        popupwindow(dictionaryConfig.url + text, 'Dictionary', 900, 540);
+        return false;
+      });
+      return dict;    
+    }
     function translateButton() {
       const tsbtn = new Button(translateConfig.icon, function() {
         popupwindow(translateConfig.url + getBrowserLanguage() + '/' + text, 'Translate', 900, 540);
         return false;
       });
       return tsbtn;
+    }
+
+    function coloropButton() {
+      const cbtn = new Button(coloropConfig.icon, function() {
+        count = count == 4 ? 0 : count + 1;
+        bgcolor = ['crimson', '#1c6482', '#a15e7d', '#008b8b', '#2e8b57'][count];
+      });
+      return cbtn;
     }
 
     function IconStyle() {
@@ -177,8 +222,10 @@ const Selection = (function() {
     }
 
     function appendIcons() {
-      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
+      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},
+      {feature:'email',call:emailButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
+      {feature:'dictionary',call:dictionaryButton()},{feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},
+      {feature:'colorop',call:coloropButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
@@ -300,11 +347,14 @@ const Selection = (function() {
     function config(options) {
       menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
       menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
+      menu.email = options.email === undefined ? menu.email : options.email;
       menu.search = options.search === undefined ? menu.search : options.search;
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
+      menu.dictionary = options.dictionary === undefined ? menu.dictionary : options.dictionary;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
+      menu.colorop = options.colorop === undefined ? menu.colorop : options.colorop;
 
       bgcolor = options.backgroundColor || '#333';
       iconcolor = options.iconColor || '#fff';
