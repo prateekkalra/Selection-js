@@ -1,0 +1,47 @@
+{
+  "name": "demo-selection-js",
+  "version": "1.0.0",
+  "description": "Text selection popover options",
+  "main": "selection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "browserify": "./node_modules/.bin/browserify selection.js --standalone selection -o ./dist/selection.js",
+    "transpile": "./node_modules/.bin/babel ./dist/selection.js --out-file ./dist/selection.es5.js",
+    "uglify": "./node_modules/.bin/uglifyjs ./dist/selection.es5.js --compress --mangle --output ./dist/selection.min.js",
+    "prepublishOnly": "npm run browserify && npm run transpile && npm run uglify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prateekkalra/Selection-js.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "dom",
+    "selection",
+    "popover",
+    "ui",
+    "ux",
+    "social",
+    "share"
+  ],
+  "author": "prateekkalra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prateekkalra/Selection-js/issues"
+  },
+  "homepage": "https://github.com/prateekkalra/Selection-js#readme",
+  "unpkg": "dist/selection.min.js",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-runtime": "^6.26.0",
+    "browserify": "^16.2.3",
+    "uglify-js": "^3.4.9"
+  }
+}
