@@ -63,6 +63,7 @@ const Selection = (function() {
       copy: true,
       speak: true,
       translate: true,
+      image: true,
       disable: false
     };
     const twitterConfig = {
@@ -101,6 +102,11 @@ const Selection = (function() {
         '<path id="svg_17" d="m16,17c-0.157,0 -0.311,-0.073 -0.408,-0.21c-0.16,-0.225 -0.107,-0.537 0.118,-0.697c2.189,-1.555 3.79,-4.727 3.79,-5.592c0,-0.276 0.224,-0.5 0.5,-0.5s0.5,0.224 0.5,0.5c0,1.318 -1.927,4.785 -4.21,6.408c-0.088,0.061 -0.189,0.091 -0.29,0.091z"/>'+
         '<path id="svg_19" d="m20,18c-0.121,0 -0.242,-0.043 -0.337,-0.131c-0.363,-0.332 -3.558,-3.283 -4.126,-4.681c-0.104,-0.256 0.02,-0.547 0.275,-0.651c0.253,-0.103 0.547,0.019 0.651,0.275c0.409,1.007 2.936,3.459 3.875,4.319c0.204,0.187 0.217,0.502 0.031,0.707c-0.099,0.107 -0.234,0.162 -0.369,0.162z"/>'+
         '</svg>'
+    };
+    const imageConfig = {
+      url: 'https://www.google.com/search?tbm=isch&q=',
+      icon:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="selection__icon"><path d="M 100 100 L 300 100 L 200 300 z"/><circle cx="10" cy="12" r="5"/></svg>'
     };
 
     let selection = '';
@@ -170,6 +176,14 @@ const Selection = (function() {
       return tsbtn;
     }
 
+    function imageButton() {
+      const tsbtn = new Button(imageConfig.icon, function() {
+        popupwindow(imageConfig.url + text, 'Image', 900, 540);
+        return false;
+      });
+      return tsbtn;
+    }
+
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
@@ -178,7 +192,7 @@ const Selection = (function() {
 
     function appendIcons() {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
-      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
+      {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()},{feature:'image',call:imageButton()}]
       const div = document.createElement('div');
       let count = 0;
       myitems.forEach((item)=>{
@@ -304,6 +318,7 @@ const Selection = (function() {
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
+      menu.image = options.image === undefined ? menu.image : options.image;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
 
       bgcolor = options.backgroundColor || '#333';
