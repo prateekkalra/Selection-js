@@ -63,7 +63,8 @@ const Selection = (function() {
       copy: true,
       speak: true,
       translate: true,
-      disable: false
+      disable: false,
+      customActions: []
     };
     const twitterConfig = {
       url: 'https://twitter.com/intent/tweet?text=',
@@ -114,6 +115,22 @@ const Selection = (function() {
     let iconsize = 24 + buttonmargin;
     let top = 0;
     let left = 0;
+
+    function Button(icon, clickFn) {
+      const btn = document.createElement('div');
+      btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
+      btn.innerHTML = icon;
+      btn.addEventListener('click', function() {
+        clickFn(text);
+      });
+      btn.onmouseover = function() {
+        this.style.transform = 'scale(1.2)';
+      };
+      btn.onmouseout = function() {
+        this.style.transform = 'scale(1)';
+      };
+      return btn;
+    }
 
     function facebookButton() {
       const fbbtn = new Button(facebookConfig.icon, function() {
@@ -184,6 +201,13 @@ const Selection = (function() {
       myitems.forEach((item)=>{
         if(menu[item.feature]){
           div.appendChild(item.call);
+          count++;
+        }
+      })
+      menu.customActions.forEach((item)=>{
+        if(item.icon !== undefined){
+          button = new Button(item.icon, item.callback)
+          div.appendChild(button);
           count++;
         }
       })
@@ -305,6 +329,7 @@ const Selection = (function() {
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
       menu.disable = options.disable === undefined ? menu.disable : options.disable;
+      menu.customActions = options.customActions === undefined ? menu.customActions : options.customActions;
 
       bgcolor = options.backgroundColor || '#333';
       iconcolor = options.iconColor || '#fff';
@@ -321,20 +346,6 @@ const Selection = (function() {
       config: config,
       init: init
     };
-  }
-
-  function Button(icon, clickFn) {
-    const btn = document.createElement('div');
-    btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
-    btn.innerHTML = icon;
-    btn.onclick = clickFn;
-    btn.onmouseover = function() {
-      this.style.transform = 'scale(1.2)';
-    };
-    btn.onmouseout = function() {
-      this.style.transform = 'scale(1)';
-    };
-    return btn;
   }
 
   return _selection;
