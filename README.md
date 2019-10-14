@@ -11,7 +11,7 @@
 
 ## Usage
 
-To get started with Selection.js, download the [Script](https://github.com/prateekkalra/Selection-js/files/1920677/SelectionJS.zip) and add it to your project
+To get started with Selection.js, download the [Script](https://raw.githubusercontent.com/prateekkalra/Selection-js/master/selection.min.js) and add it to your project
 
 
 ### Basic
