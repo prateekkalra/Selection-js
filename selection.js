@@ -59,6 +59,7 @@ const Selection = (function() {
     const menu = {
       twitter: true,
       facebook: true,
+      gmail: true,
       search: true,
       copy: true,
       speak: true,
@@ -75,6 +76,16 @@ const Selection = (function() {
       icon:
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M20,2H4C2.9,2,2,2.9,2,4v16c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M18.4,7.4H17c-0.9,0-1,0.3-1,1l0,1.3 h2.1L18,12h-1.9v7h-3.2v-7h-1.2V9.6h1.2V8.1c0-2,0.8-3.1,3.1-3.1h2.4V7.4z"/></svg>'
     };
+
+    const gmailConfig = {
+      url: 'https://mail.google.com/mail/?view=cm&fs=1&body=',
+      icon: '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">' +
+     '<path fill="#ffffff" stroke="null" id="svg_23" d="m22.146296,3.632703l-20.033333,0c-0.614651,0 -1.112963,0.498269 -1.112963,1.112963l0,14.839492c0,0.614651 0.498269,1.112963 1.112963,1.112963l20.033333,0c0.614651,0 1.112963,-0.498269 1.112963,-1.112963l0,-14.839492c0,-0.614651 -0.498269,-1.112963 -1.112963,-1.112963zm0.370973,15.952501c0,0.204898 -0.166075,0.37097 -0.370973,0.37097l-20.033333,0c-0.204898,0 -0.370973,-0.166072 -0.370973,-0.37097l0,-14.839538c0,-0.204898 0.166075,-0.370973 0.370973,-0.370973l20.033333,0c0.204898,0 0.370973,0.166075 0.370973,0.370973l0,14.839538z"/>'+
+     '<path fill="#ffffff" stroke="null" id="svg_24" d="m21.436607,5.11803c-0.098035,-0.008562 -0.195464,0.022174 -0.270804,0.085473l-8.558731,7.189698c-0.276024,0.232027 -0.678907,0.232027 -0.954931,0l-8.558639,-7.189741c-0.101514,-0.08521 -0.240809,-0.109817 -0.365366,-0.064515c-0.124557,0.045299 -0.215506,0.153641 -0.238549,0.284196s0.025302,0.263458 0.126817,0.348668l8.558685,7.18935c0.551615,0.464444 1.357467,0.464444 1.909125,0l8.558642,-7.189305c0.075386,-0.063256 0.122511,-0.15386 0.131077,-0.251896c0.008565,-0.098035 -0.022174,-0.195464 -0.085473,-0.270807c-0.063213,-0.075428 -0.153815,-0.122557 -0.251853,-0.131122z"/>'+
+     '<path fill="#ffffff" stroke="null" id="svg_25" d="m8.135309,12.910164c-0.131339,-0.029303 -0.268197,0.01478 -0.357755,0.115208l-5.193841,5.564815c-0.093995,0.096255 -0.128512,0.235896 -0.090168,0.364845c0.038344,0.128988 0.143511,0.227069 0.274807,0.256372c0.131336,0.029303 0.268197,-0.014783 0.357755,-0.115208l5.193841,-5.564815c0.093995,-0.096255 0.128512,-0.235896 0.090168,-0.364845c-0.038347,-0.128948 -0.143469,-0.227069 -0.274807,-0.256372z"/>'+
+     '<path fill="#ffffff" stroke="null" id="svg_26" d="m16.481705,13.025373c-0.089516,-0.100429 -0.226416,-0.144511 -0.357755,-0.115208c-0.131339,0.029303 -0.23646,0.127424 -0.274807,0.256372c-0.038344,0.128991 -0.003827,0.26859 0.090168,0.364845l5.193841,5.564815c0.140858,0.144249 0.371105,0.14964 0.518528,0.012084c0.147423,-0.137553 0.158032,-0.367625 0.023866,-0.518135l-5.193841,-5.564772z"/>'+
+     '</svg>'
+    }
     const searchConfig = {
       url: 'https://www.google.co.in/search?q=',
       icon:
@@ -138,6 +149,16 @@ const Selection = (function() {
       return twbtn;
     }
 
+    function gmailButton() {
+      const url = window.location.href;
+      const gmlbtl = new Button(gmailConfig.icon, function() {
+        popupwindow(gmailConfig.url + encodeURIComponent(text) + ' ' + url , 'Email', 550, 295);
+        return false;
+      });
+
+      return gmlbtl;
+    }
+
     function searchButton() {
       const searchbtn = new Button(searchConfig.icon, function() {
         popupwindow(searchConfig.url + encodeURIComponent(text), 'Search', 900, 540);
@@ -177,7 +198,7 @@ const Selection = (function() {
     }
 
     function appendIcons() {
-      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
+      const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'gmail',call:gmailButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
       {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
       let count = 0;
@@ -300,6 +321,7 @@ const Selection = (function() {
     function config(options) {
       menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
       menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
+      menu.gmail = options.gmail === undefined ? menu.gmail : options.gmail;
       menu.search = options.search === undefined ? menu.search : options.search;
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
