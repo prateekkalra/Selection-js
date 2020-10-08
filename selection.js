@@ -230,7 +230,16 @@ const Selection = (function() {
         'transition:all .2s ease-in-out;' +
         'box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);' +
         'z-index:99999;';
-
+      div.animate(
+        [
+          // keyframes
+          { transform: "translateY(100%) scale(0)" },
+          { transform: "translateY(0) scale(100%)" },
+        ],
+        {
+          // timing options
+          duration: 200,
+      })
       div.appendChild(_icons.icons);
 
       const arrow = document.createElement('div');
