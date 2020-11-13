@@ -106,7 +106,7 @@ const Selection = (function() {
     let selection = '';
     let text = '';
     let bgcolor = 'crimson';
-    let iconcolor = '#fff';
+    var iconcolor = ' crimson';
 
     let _icons = {};
     let arrowsize = 5;
@@ -173,7 +173,9 @@ const Selection = (function() {
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
+      
       document.body.appendChild(style);
+      
     }
 
     function appendIcons() {
@@ -206,6 +208,7 @@ const Selection = (function() {
       let tooltip = document.querySelector('.selection');
       tooltip.style.top = `${top}px`;
       tooltip.style.left = `${left}px`;
+      
     }
 
     function drawTooltip() {
@@ -221,6 +224,7 @@ const Selection = (function() {
         bgcolor +
         ';' +
         'border-radius:20px;' +
+        'border-color:crimson;'+
         'top:' +
         top +
         'px;' +
@@ -229,7 +233,7 @@ const Selection = (function() {
         'px;' +
         'transition:all .2s ease-in-out;' +
         'box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);' +
-        'z-index:99999;';
+        'z-index:99999;' ;
 
       div.appendChild(_icons.icons);
 
@@ -243,6 +247,7 @@ const Selection = (function() {
         arrowsize +
         'px solid transparent;' +
         'border-top:' +
+        'border-color:crimson;'+
         arrowsize +
         'px solid ' +
         bgcolor +
@@ -330,9 +335,11 @@ const Selection = (function() {
     btn.onclick = clickFn;
     btn.onmouseover = function() {
       this.style.transform = 'scale(1.2)';
+     
     };
     btn.onmouseout = function() {
       this.style.transform = 'scale(1)';
+     
     };
     return btn;
   }
