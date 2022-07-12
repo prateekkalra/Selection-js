@@ -1,27 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+* html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color:#0f0e13;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+}
+
+.desc{
+	color: thistle;
+}
+
+
 .logo{
 	width: 200px;
 	height: 200px;
 	margin-top: 2%;
 }
 .lcolor{
-	color: #D91B5B;
+	color: #c8c8d7;
 }
 .btns{
 	margin-top: 1%
 }
 #note{
-	border: 2px dotted black;
+	border: 2px dotted rgb(177, 189, 236);
 	padding-bottom: 7px;
 	width: 60%;
 	margin-bottom:1%;
+	border-radius: 10px; 
 }
 #note:hover{
-	border: 2px dashed #D91B5B;
+	border: 2px dashed #7be76b;
+
 }
 
-.header{
-	font-family: Francois One;
-}
 .list-group-item{
-	font-family: Noticia Text;
+	font-family: Open Sans;
+	background-color: lavender;
+	font-size: medium;
 }
