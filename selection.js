@@ -47,7 +47,6 @@ const Selection = (function() {
 
   function getBrowserLanguage(){ 
     let language = navigator.language || navigator.userLanguage || function (){ 
-      const languages = navigator.languages; 
       if (navigator.languages.length > 0){ 
         return navigator.languages[0]; 
       } 
