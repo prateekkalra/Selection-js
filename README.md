@@ -32,6 +32,7 @@ To get started with Selection.js, download the [Script](https://github.com/prate
   var selection = new Selection();
   selection.config({
     facebook: true,
+    mastodon: true,
     twitter: true,
     search:true,
     copy:true,
@@ -48,3 +49,6 @@ To get started with Selection.js, download the [Script](https://github.com/prate
 <p align="center">
 <img alt="Demo" src="https://user-images.githubusercontent.com/29385192/38880290-f5e173ce-4282-11e8-9447-6cab91540735.PNG">
 </p>
+
+## Credit
+- HT to @autinerd for the Mastodon popup logic for specifying the instance.
