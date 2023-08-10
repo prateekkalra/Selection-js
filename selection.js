@@ -274,27 +274,25 @@ const Selection = (function() {
 
       window.addEventListener(
         'mouseup',
-        function() {
-          setTimeout(function mouseTimeout() {
-            if (hasTooltipDrawn()) {
-              if (hasSelection()) {
-                selection = window.getSelection();
-                text = selection.toString();
-                moveTooltip();
-                return;
-              } else {
-                document.querySelector('.selection').remove();
-              }
-            }
+        _.debounce(function() {
+          if (hasTooltipDrawn()) {
             if (hasSelection()) {
               selection = window.getSelection();
               text = selection.toString();
-              drawTooltip();
+              moveTooltip();
+              return;
+            } else {
+              document.querySelector('.selection').remove();
             }
-          }, 10);
-        },
-        false
+          }
+          if (hasSelection()) {
+            selection = window.getSelection();
+            text = selection.toString();
+            drawTooltip();
+          }
+        }, 300) // Adjust the debounce delay as needed
       );
+
     }
 
     function config(options) {
