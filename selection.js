@@ -1,4 +1,21 @@
 const Selection = (function() {
+  // Function to display the pop-up
+  function showPopup() {
+    const popup = document.getElementById("popup-box");
+    popup.style.display = "block";
+
+    // Close the pop-up after 5 seconds (5000 milliseconds)
+    setTimeout(() => {
+      closePopup();
+    }, 1000);
+  }
+
+  // Function to close the pop-up
+  function closePopup() {
+    const popup = document.getElementById("popup-box");
+    popup.style.display = "none";
+  }
+  
   function copyTextToClipboard(text) {
     let textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
@@ -20,7 +37,7 @@ const Selection = (function() {
     try {
       let successful = document.execCommand('copy');
       let msg = successful ? 'successful' : 'unsuccessful';
-      console.log('Copying text command was ' + msg);
+      showPopup();
     } catch (err) {
       console.log('Oops, unable to copy');
     }
