@@ -32,6 +32,7 @@ To get started with Selection.js, download the [Script](https://github.com/prate
   var selection = new Selection();
   selection.config({
     facebook: true,
+    instagram: true,
     twitter: true,
     search:true,
     copy:true,
